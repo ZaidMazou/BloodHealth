@@ -65,6 +65,7 @@ class BloodPocketController extends Controller
             'hopital' => $hospitalId,
             'type' => 'Ajout',
             'quantite' => $request->quantite,
+            'group_sanguin'=>$request->group_sanguin,
             'updated_at'=> now()
         ]);
 
@@ -84,6 +85,7 @@ class BloodPocketController extends Controller
             'hopital' => $hospitalId,
             'type' => 'Ajout',
             'quantite' => $request->quantite,
+            'group_sanguin'=>$request->group_sanguin,
             'updated_at'=> now()
         ]);
 
@@ -142,7 +144,7 @@ class BloodPocketController extends Controller
             'updated_at'=> now()
         ]);
 
-        return redirect()->route('admin.')->with('success', 'Enregistrement effectué avec succès');
+        return redirect()->route('admin.')->with('success', 'Retrait effectué avec succès');
     } else {
         
         return redirect()->route('admin.')->with('error', 'Vous ne disposer peut-être pas de ce groupe sanguin ou la quantité est superieur à celle disponible');

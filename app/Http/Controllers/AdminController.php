@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Hospital;
 use App\Models\BloodPocket;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +20,15 @@ class AdminController extends Controller
         ->get();
         $countblood = BloodPocket::where('hopital', $hospital)->select(DB::raw("sum(quantite) as total"))->first();
 
-    
+        $transactions = Transaction::with(['adminUser', 'hospital'])
+        ->orderBy('id', 'desc')
+        ->where('hopital',$hospital)
+        ->paginate(5);
+
         return view('admin.index',[
             'blood'=>$blood,
-            'countblood'=>$countblood
+            'countblood'=>$countblood,
+            'transactions'=>$transactions
         ]);
     }
 
@@ -31,9 +37,19 @@ class AdminController extends Controller
         $userscount = User::where('admin',0)->count();
         $hospital = Hospital::count();
         $bloods = BloodPocket::select('group_sanguin', DB::raw('sum(quantite) as total'))->groupBy('group_sanguin')->get();
+
+        $transactions = Transaction::with(['adminUser', 'hospital'])
+        ->orderBy('id', 'desc')
+        ->paginate(5);
         
         $blood =  BloodPocket::sum('quantite');
-        dd($blood);
-        return view('admin.superadminvisual');
+        
+        return view('admin.superadminvisual',[
+            'blood'=>$blood,
+            'hospital'=>$hospital,
+            'userscount'=>$userscount,
+            'bloods'=>$bloods,
+            'transactions' => $transactions
+        ]);
     }
 }

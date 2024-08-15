@@ -37,7 +37,6 @@
                                 <td>{{ $item->quantite}}</td>
                                 <td>{{ $item->created_at}}</td>
                                 <td>{{ $item->updated_at}}</td>
-                                <td><i class="fa fa-refresh reload-card text-success"></i></td>
                             </tr>
                         @empty
                         <div class="alert alert-danger col-md">Aucune poche</div>

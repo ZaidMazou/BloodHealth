@@ -45,7 +45,7 @@
 
             <!-- Terms & Conditions -->
             <div class="row m-t-25 text-left">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="checkbox-fade fade-in-primary">
                         <label>
                             <input type="checkbox" value="">
@@ -53,6 +53,9 @@
                             <span class="text-inverse">I read and accept <a href="#">Terms & Conditions.</a></span>
                         </label>
                     </div>
+                </div>
+                <div class=" col-md-6">
+                    <a href="{{ route('password.request')}}"> Vous avez oublié votre mot de passe ?</a>
                 </div>
             </div>
 

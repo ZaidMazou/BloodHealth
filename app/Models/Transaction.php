@@ -14,6 +14,17 @@ class Transaction extends Model
         'hopital',
         'quantite',
         'type',
+        'group_sanguin',
         'updated_at'
     ];
+
+    public function adminUser()
+    {
+        return $this->belongsTo(User::class, 'admin');
+    }
+
+    public function hospital()
+    {
+        return $this->belongsTo(Hospital::class, 'hopital');
+    }
 }

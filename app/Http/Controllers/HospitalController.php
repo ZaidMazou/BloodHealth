@@ -57,7 +57,7 @@ class HospitalController extends Controller
             'admin' => $request->admin,
         ]);
 
-        return redirect()->route('admin.')->with('success', 'Hôpital créé avec succès.');
+        return redirect()->route('admin.hopital.index')->with('success', 'Hôpital créé avec succès.');
     }
 
     /**
@@ -86,25 +86,25 @@ class HospitalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Hospital $hospital)
+    public function update(Request $request, string $id)
     {
+        $hospital = Hospital::findOrfail($id);
+        
         // Valider les données de la requête
-        $validate =$request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telephone' => 'required|string|max:20',
             'adresse' => 'required|string|max:255',
-            'admin' => 'required|exists:users,id',
         ]);
 
-        $hospital->fill([
-            'name' => $hospital->name,
-            'email' => $hospital->email,
-            'telephone' => $hospital->telephone,
-            'adresse' => $hospital->adresse,
-            'admin' => $hospital->admin,
+        
+        $hospital->update([
+            'name' => $request->name,
+            'email'=>$request->email,
+            'telephone'=>$request->telephone,
+            'adresse'=> $request->adresse
         ]);
-        $hospital->update($validate);
 
 
         return redirect()->route('admin.')->with('success', 'Hôpital mis à jour avec succès.');
@@ -115,6 +115,9 @@ class HospitalController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $hospital = Hospital::findOrfail($id);
+
+        $hospital->delete();
+        return redirect()->route('admin.hopital.index')->with('success', 'Hôpital supprimer avec succès.');
     }
 }

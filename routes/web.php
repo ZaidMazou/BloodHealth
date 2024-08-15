@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BloodPocketController;
 use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
 });
 
 Route::middleware('auth')->get('/superadmin',[AdminController::class,'superadminvisual'])->name('admin.superadmin');
+
+Route::middleware('auth')->get('/profile',[ProfileController::class,'displayprofile'])->name('admin.profile');
+Route::middleware('auth')->put('/profile/update',[ProfileController::class,'upadateprofile'])->name('admin.profile.update');
 require __DIR__.'/auth.php';

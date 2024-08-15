@@ -16,4 +16,9 @@ class Hospital extends Model
         'adresse',
         'admin',
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'hopital');
+    }
 }

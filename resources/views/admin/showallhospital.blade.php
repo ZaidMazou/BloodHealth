@@ -37,7 +37,17 @@
                             <td>{{ $item->telephone}}</td>
                             <td>{{ $item->adresse}}</td>
                             <td>{{ $item->admin}}</td>
-                            <td><i class="fa fa-refresh reload-card text-success"></i></td>
+                            <td>
+                               <form action="{{ route('admin.hopital.destroy',$item->id)}}" method="post" onclick="confirm('Voulez vous vraiment supprimer cet hôpital ?')">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class=" btn btn-light">
+                                    <i class="fa fa-trash close-card text-danger">
+           
+                                    </i>
+                                </button>
+                               </form>
+                            </td>
                         </tr>
                     @empty
                     <div class="alert alert-danger col-md">Aucun hôpital</div>

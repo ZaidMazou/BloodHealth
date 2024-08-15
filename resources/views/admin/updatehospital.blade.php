@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <h2>Modifier l'Hôpital</h2>
-
-        <form action="{{ route('admin.hopital.update', $hospital) }}" method="POST" class="form-material">
+           
+        <form action="{{ route('admin.hopital.update', $hospital->id) }}" method="POST" class="form-material">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -39,21 +39,6 @@
                 <input type="text" name="adresse" id="adresse" class="form-control"
                     value="{{ old('adresse', $hospital->adresse) }}" required>
                 @error('adresse')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="admin">Administrateur</label>
-                <select name="admin" id="admin" class="form-control" required>
-                    <!-- Liste des utilisateurs à assigner comme administrateurs -->
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}" {{ $hospital->admin == $user->id ? 'selected' : '' }}>
-                            {{ $user->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('admin')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
