@@ -53,7 +53,16 @@
     </div>
 
 
-    <div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5>Liste des transactions</h5>
+    
+            <div class="card-header-right">
+                <a href="{{ route('transactions/pdf')}}">
+                    <i class="fa fa-download"></i>
+                </a>
+            </div>
+        </div>
         <div class="card-block table-border-style">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -65,6 +74,7 @@
                             <th>Type</th>
                             <th>Quantité</th>
                             <th>Groupe sanguin</th>
+                            <th>Motif</th>
                             <th>Date</th>
                         </tr>
                     </thead>
@@ -78,11 +88,12 @@
                                     @if ($transaction->type === 'Ajout')
                                         <label class="badge badge-success">Ajout</label>
                                     @else
-                                        <label class="badge badge-danger">Retrait</label> 
+                                        <label class="badge badge-danger">Retrait</label>
                                     @endif
                                 </td>
                                 <td>{{ $transaction->quantite }}</td>
                                 <td>{{ $transaction->group_sanguin }}</td>
+                                <td>{{ strtr($transaction->motif_transaction, 0, 60) }}</td>
                                 <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
                             </tr>
                         @empty
@@ -131,7 +142,6 @@
                 </nav>
             </div>
         </div>
-
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

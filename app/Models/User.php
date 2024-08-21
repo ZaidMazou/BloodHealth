@@ -53,4 +53,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class, 'admin');
     }
+
+    public function hospital()  {
+        return $this->hasMany(Hospital::class);
+    }
 }

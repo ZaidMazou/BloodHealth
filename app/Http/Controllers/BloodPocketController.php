@@ -7,6 +7,7 @@ use App\Models\BloodPocket;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BloodPocketController extends Controller
 {
@@ -27,6 +28,9 @@ class BloodPocketController extends Controller
      */
     public function create()
     {
+        if (Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         return view('admin.addblood');
     }
 
@@ -35,11 +39,15 @@ class BloodPocketController extends Controller
      */
     public function store(Request $request)
 {
+    if (Gate::allows('acces-superadmin')) {
+        abort('403');
+    }
     // Valider les données de la requête
     $request->validate([
         'group_sanguin' => 'required|string',
         'quantite' => 'required|integer',
         'capacite' => 'required|integer',
+        'motif_transaction'=>'nullable|string'
     ]);
 
     // Récupérer l'ID de l'hôpital basé sur l'utilisateur authentifié
@@ -86,6 +94,7 @@ class BloodPocketController extends Controller
             'type' => 'Ajout',
             'quantite' => $request->quantite,
             'group_sanguin'=>$request->group_sanguin,
+            'motif_transaction'=>$request->motif_transaction,
             'updated_at'=> now()
         ]);
 
@@ -107,6 +116,9 @@ class BloodPocketController extends Controller
      */
     public function edit(string $id)
     {
+        if (Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         return view('admin.removeblood');
     }
 
@@ -115,10 +127,14 @@ class BloodPocketController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         $request->validate([
             'group_sanguin' => 'required|string',
             'quantite' => 'required|integer',
             'capacite' => 'required|integer',
+            'motif_transaction'=>'required|string'
         ]);
 
         $hospitalId = Hospital::where('admin', $id)->value('id');
@@ -141,6 +157,8 @@ class BloodPocketController extends Controller
             'hopital' => $hospitalId,
             'type' => 'Retrait',
             'quantite' => $request->quantite,
+            'group_sanguin'=>$request->group_sanguin,
+            'motif_transaction'=>$request->motif_transaction,
             'updated_at'=> now()
         ]);
 

@@ -136,7 +136,7 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                            <li class="header-notification">
+                            {{-- <li class="header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     <i class="ti-bell"></i>
                                     <span class="badge bg-c-red"></span>
@@ -147,7 +147,7 @@
                                         <label class="label label-danger">New</label>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     @if (Auth::user()->picture !== null)
@@ -162,11 +162,6 @@
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
                                         <a href="{{ route('admin.profile') }}">
                                             <i class="ti-user"></i> Profile
                                         </a>
@@ -175,7 +170,7 @@
                                         <form action="{{ route('logout') }}" method="post">
                                             @csrf
                                             <button type="submit" class=" btn btn-none"> <i
-                                                    class="ti-layout-sidebar-left"></i> Logout</button>
+                                                    class="ti-layout-sidebar-left"></i> Déconnexion</button>
                                         </form>
                                     </li>
                                 </ul>
@@ -207,13 +202,12 @@
                                 <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
-                                            <a href="{{ route('admin.profile') }}"><i class="ti-user"></i>View
+                                            <a href="{{ route('admin.profile') }}"><i class="ti-user"></i>Votre
                                                 Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
                                             <form action="{{ route('logout') }}" method="post">
                                                 @csrf
                                                 <button type="submit" class=" btn btn-light"> <i
-                                                        class="ti-layout-sidebar-left"></i> Logout</button>
+                                                        class="ti-layout-sidebar-left"></i> Déconnexion</button>
                                             </form>
                                         </li>
                                     </ul>
@@ -224,69 +218,72 @@
                                     <div class="form-group form-primary">
                                         <input type="text" name="footer-email" class="form-control">
                                         <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search
-                                            Friend</label>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Recherchez ...
+                                        </label>
                                     </div>
                                 </form>
                             </div>
 
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li class="{{ Route::is('admin.') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.') }}" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                        <span class="pcoded-mtext">Dashboard</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                            </ul>
+                            @if (Auth::user()->admin === 0)
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="{{ Route::is('admin.') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.') }}" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                            <span class="pcoded-mtext">Dashboard</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
 
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
-                                        <span class="pcoded-mtext">Poches de sang</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href=" {{ route('admin.blood.index') }}"
-                                                class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Toutes les poches</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class="{{ Route::is('admin.blood.create') ? 'active' : '' }}">
-                                            <a href="{{ route('admin.blood.create') }}"
-                                                class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Ajouter une poche</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="{{ route('admin.blood.edit', Auth::user()->id) }}"
-                                                class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Retrait de poches</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="pcoded-hasmenu">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i
+                                                    class="ti-layout-grid2-alt"></i><b>BC</b></span>
+                                            <span class="pcoded-mtext">Poches de sang</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                        <ul class="pcoded-submenu">
+                                            <li class=" ">
+                                                <a href=" {{ route('admin.blood.index') }}"
+                                                    class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext">Toutes les poches</span>
+                                                    <span class="pcoded-mcaret"></span>
+                                                </a>
+                                            </li>
+                                            <li class="{{ Route::is('admin.blood.create') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.blood.create') }}"
+                                                    class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext">Ajouter une poche</span>
+                                                    <span class="pcoded-mcaret"></span>
+                                                </a>
+                                            </li>
+                                            <li class=" ">
+                                                <a href="{{ route('admin.blood.edit', Auth::user()->id) }}"
+                                                    class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext">Retrait de poches</span>
+                                                    <span class="pcoded-mcaret"></span>
+                                                </a>
+                                            </li>
 
-                                    </ul>
-                                </li>
-                            </ul>
+                                        </ul>
+                                    </li>
+                                </ul>
 
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li class="{{ Route::is('admin.hoiptal.show') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.hopital.show', Auth::user()->id) }}"
-                                        class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext">Hopital</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                            </ul>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="{{ Route::is('admin.hoiptal.show') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.hopital.show', Auth::user()->id) }}"
+                                            class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                            <span class="pcoded-mtext">Hopital</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            @endif
                             @if (Auth::user()->admin === 1)
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li class="pcoded-hasmenu">
@@ -309,7 +306,7 @@
                                                 <a href="{{ route('admin.user.index') }}"
                                                     class="waves-effect waves-dark">
                                                     <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                    <span class="pcoded-mtext">Tous le admin</span>
+                                                    <span class="pcoded-mtext">Tous les admins</span>
                                                     <span class="pcoded-mcaret"></span>
                                                 </a>
                                             </li>

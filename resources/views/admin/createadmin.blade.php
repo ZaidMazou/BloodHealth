@@ -54,8 +54,8 @@
                     <div class="col-sm-6">
                         <div class=" form-group form-primary form-static-label">
                             <select name="admin" id="admin" class="form-control">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
+                                <option value="0">Admin</option>
+                                <option value="1">SuperAdmin</option>
                             </select>
                             <label for="admin" class="float-label">SuperAdmin ??</label>
                         </div>

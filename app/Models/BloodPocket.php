@@ -14,4 +14,8 @@ class BloodPocket extends Model
         'capacite',
         'hopital'
     ];
+
+    public function hospital()  {
+        return $this->belongsTo(Hospital::class);
+    }
 }

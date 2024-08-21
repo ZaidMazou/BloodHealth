@@ -15,6 +15,7 @@ class Transaction extends Model
         'quantite',
         'type',
         'group_sanguin',
+        'motif_transaction',
         'updated_at'
     ];
 

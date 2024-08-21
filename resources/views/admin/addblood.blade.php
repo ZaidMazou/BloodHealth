@@ -30,6 +30,13 @@
             <span class="form-bar"></span>
             <label class="float-label text-danger" for="capacite">Capacité <span class="text-info">(ml)</span></label>
         </div>
+        <div class="form-group form-default form-static-label">
+            <textarea type="number" name="motif_transaction" class="form-control" id="motif_transaction" required>
+               
+            </textarea>
+            <span class="form-bar"></span>
+            <label class="float-label text-danger" for="motif_transaction">Motif de</label>
+        </div>
         <button class="btn btn-primary" type="submit">Soumettre</button>
     </form>
 @endsection

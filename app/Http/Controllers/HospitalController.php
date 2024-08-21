@@ -6,6 +6,7 @@ use App\Models\Hospital;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class HospitalController extends Controller
 {
@@ -24,6 +25,9 @@ class HospitalController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         $hospital = new Hospital();
         
         $users = User::all(); // Récupérer tous les utilisateurs pour les administrateurs
@@ -39,6 +43,9 @@ class HospitalController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         // Valider les données de la requête
         $request->validate([
             'name' => 'required|string|max:255',
@@ -115,6 +122,9 @@ class HospitalController extends Controller
      */
     public function destroy(string $id)
     {
+        if (!Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         $hospital = Hospital::findOrfail($id);
 
         $hospital->delete();

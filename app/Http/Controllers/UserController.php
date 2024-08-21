@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -24,6 +25,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         return view('admin.createadmin') ;
     }
 
@@ -32,6 +36,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('acces-superadmin')) {
+            abort('403');
+        }
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
