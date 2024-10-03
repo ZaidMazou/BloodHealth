@@ -1,5 +1,5 @@
 @extends('admin.Layout')
-
+@section('title','Retirer des poches de sang')
 @section('content')
 
 <div class=" row mb-5">

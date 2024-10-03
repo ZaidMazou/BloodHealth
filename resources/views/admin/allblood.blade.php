@@ -1,5 +1,5 @@
 @extends('admin.Layout')
-
+@section('title','Liste des poches de sang')
 @section('content')
     <div class="card">
         <div class="card-header">

@@ -16,8 +16,11 @@ class HospitalController extends Controller
     public function index()
     {
         // Récupérer tous les hôpitaux et les passer à la vue
-        $hospitals = Hospital::all();
-        return view('admin.showallhospital', compact('hospitals'));
+        $hospitals = Hospital::with('userAdmin')->paginate(15);
+        return view('admin.showallhospital', [
+            'hospitals'=>$hospitals
+        ]);
+
     }
 
     /**

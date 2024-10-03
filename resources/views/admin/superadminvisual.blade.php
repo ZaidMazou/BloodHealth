@@ -1,5 +1,7 @@
 @extends('admin.Layout')
 
+@section('title','Statistiques')
+
 @section('content')
     <div class="row">
         <!-- Users Count -->
@@ -47,7 +49,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Blood Type Distribution
+                    Nombre de poche de sang disponible par groupe sanguin
                 </div>
                 <div class="card-body">
                     <canvas id="bloodTypeChart"></canvas>

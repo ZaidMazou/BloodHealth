@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Hospital;
-use Barryvdh\DomPDF\PDF as DomPDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\BloodPocket;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        if ( Gate::allows('acces-superadmin')) {
+        if (Gate::allows('acces-superadmin')) {
             abort('403');
         }
         $hospital = Hospital::where('admin', Auth::user()->id)->value('id');
@@ -92,14 +92,81 @@ class AdminController extends Controller
 
         $transactions = $query->with(['adminUser', 'hospital'])->get();
 
+      
+
         // Générer le PDF avec les données des transactions
-        $pdf = DomPDF::loadView('transactions.pdf', compact('transactions'));
+        $pdf = Pdf::loadView('transaction.pdf', compact('transactions'));
 
         // Télécharger le fichier PDF
         return $pdf->download('transactions.pdf');
     }
 
-    public function transactionsToPdf()  {
+    public function transactionsToPdf()
+    {
         return view('admin.downloadtransaction');
+    }
+
+    public function consommation()
+    {
+
+        $hospitals = Hospital::with('userAdmin')->get();
+        $consommation = Transaction::where('type', 'Retrait')
+            ->select('group_sanguin', DB::raw('sum(quantite) as total'))
+            ->groupBy('group_sanguin')
+            ->get();
+
+        return view('admin.consommation', [
+            'consommation' => $consommation,
+            'hospitals' => $hospitals
+        ]);
+    }
+
+    public function searchconsommation(Request $request)
+    {
+
+        $request->validate([
+            'group_sanguin' => 'nullable|string',
+            'hopital' => 'nullable',
+            'debut' => 'nullable|date',
+            'fin' => 'nullable|date|after_or_equal:debut',
+        ]);
+        
+        $query = Transaction::query();
+        
+        // Filtrer par groupe sanguin
+        if ($request->filled('group_sanguin')) {
+            $query->where('group_sanguin', '=', $request->group_sanguin);
+        }
+        
+        // Filtrer par hôpital
+        if ($request->filled('hopital')) {
+            $query->where('hopital', '=', $request->hopital);
+        }
+        
+        // Filtrer par date de début et date de fin
+        if ($request->filled('debut') && $request->filled('fin')) {
+            $query->whereBetween('created_at', [$request->debut, $request->fin]);
+        } elseif ($request->filled('debut')) {
+            $query->whereDate('created_at', '>=', $request->debut);
+        } elseif ($request->filled('fin')) {
+            $query->whereDate('created_at', '<=', $request->fin);
+        }
+        
+        // Calculer la somme des quantités
+        $totalQuantite = $query->sum('quantite');
+        
+        // Récupérer les transactions avec les relations
+        $transactions = $query->with(['adminUser', 'hospital'])->get();
+        
+        // Retourner la vue avec les données
+        
+        return view('admin.consommationview', [
+            'transactions' => $transactions,
+            'totalQuantite' => $totalQuantite,
+            'debut'=> $request->debut,
+            'fin'=> $request->fin,
+            'group_sanguin'=>$request-> group_sanguin,
+            'hospital' =>Hospital::findOrfail($request->hopital)->name
+        ]);
     }
 }

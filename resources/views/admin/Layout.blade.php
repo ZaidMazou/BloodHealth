@@ -152,7 +152,7 @@
                                 <a href="#!" class="waves-effect waves-light">
                                     @if (Auth::user()->picture !== null)
                                         <img src="{{ asset('storage/' . Auth::user()->picture) }}" class="img-radius"
-                                            alt="User-Profile-Image">
+                                            alt="User-Profile-Image" style="width: 45px; height:45px; object-fit:cover">
                                     @else
                                         <img src="{{ asset('assets/images/avatar-4.jpg') }}" class="img-radius"
                                             alt="User-Profile-Image">
@@ -189,7 +189,7 @@
                                 <div class="main-menu-header">
                                     @if (Auth::user()->picture)
                                         <img src="{{ asset('storage/' . Auth::user()->picture) }}" class="img-radius"
-                                            alt="User-Profile-Image">
+                                            alt="User-Profile-Image" style="width: 95px; height:95px; object-fit:cover">
                                     @else
                                         <img src="{{ asset('assets/images/avatar-4.jpg') }}" class="img-radius"
                                             alt="User-Profile-Image">
@@ -334,6 +334,14 @@
                                                     <span class="pcoded-mcaret"></span>
                                                 </a>
                                             </li>
+                                            <li class=" ">
+                                                <a href="{{ route('admin.consommation') }}"
+                                                    class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext">Consommation</span>
+                                                    <span class="pcoded-mcaret"></span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -347,7 +355,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Dashboard</h5>
+                                            <h5 class="m-b-10">@yield('title')</h5>
                                             <p class="m-b-0">Bienvenu sur votre interface de gestion</p>
                                         </div>
                                     </div>

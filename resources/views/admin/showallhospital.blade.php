@@ -1,5 +1,7 @@
 @extends('admin.Layout')
 
+@section('title','Liste des hôpitaux')
+
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -36,7 +38,7 @@
                             <td>{{ $item->email}}</td>
                             <td>{{ $item->telephone}}</td>
                             <td>{{ $item->adresse}}</td>
-                            <td>{{ $item->admin}}</td>
+                            <td>{{ $item->userAdmin->name}}</td>
                             <td>
                                <form action="{{ route('admin.hopital.destroy',$item->id)}}" method="post" onclick="confirm('Voulez vous vraiment supprimer cet hôpital ?')">
                                 @csrf

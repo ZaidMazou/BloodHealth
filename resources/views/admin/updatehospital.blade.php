@@ -1,5 +1,5 @@
 @extends('admin.Layout')
-
+@section('title','Modifier les information de votre hôpital')
 @section('content')
     <div class="container">
         <h2>Modifier l'Hôpital</h2>

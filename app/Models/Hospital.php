@@ -22,13 +22,14 @@ class Hospital extends Model
         return $this->hasMany(Transaction::class, 'hopital');
     }
 
-    public function user()  {
-        return $this->belongsTo(User::class);
+    public function userAdmin()
+    {
+        return $this->belongsTo(User::class, 'admin');
     }
 
-    public function blood_poket() {
+    public function blood_poket()
+    {
 
         return $this->hasMany(BloodPocket::class);
     }
-
 }

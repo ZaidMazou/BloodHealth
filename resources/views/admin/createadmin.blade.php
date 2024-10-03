@@ -1,5 +1,7 @@
 @extends('admin.Layout')
 
+@section('title','Créer un administrateur')
+
 @section('content')
 <div class=" row">
     <h2>Créer un administrateur</h2>
@@ -12,7 +14,7 @@
                     <div class="form-group form-primary form-static-label">
                         <input type="text" name="name" class="form-control" value="{{ old('name') }}" required autofocus>
                         <span class="form-bar"></span>
-                        <label class="float-label">Choose Username</label>
+                        <label class="float-label">Entrez le nom</label>
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -22,7 +24,7 @@
                     <div class="form-group form-primary form-static-label">
                         <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
                         <span class="form-bar"></span>
-                        <label class="float-label">Your Email Address</label>
+                        <label class="float-label">Entrez l'email</label>
                         @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -34,7 +36,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <input type="password" name="password" class="form-control" required>
                                 <span class="form-bar"></span>
-                                <label class="float-label">Password</label>
+                                <label class="float-label">Mot de passe</label>
                                 @error('password')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -46,7 +48,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <input type="password" name="password_confirmation" class="form-control" required>
                                 <span class="form-bar"></span>
-                                <label class="float-label">Confirm Password</label>
+                                <label class="float-label">Confirmez le mot de passe</label>
                             </div>
                         </div>
                     </div>
@@ -65,7 +67,7 @@
                     <!-- Submit Button -->
                     <div class="row m-t-30">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now</button>
+                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Créer maintenant</button>
                         </div>
                     </div>
         

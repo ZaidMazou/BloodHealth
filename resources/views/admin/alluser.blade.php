@@ -1,5 +1,7 @@
 @extends('admin.Layout')
 
+@section('title','Tous les administrateurs')
+
 @section('content')
 <div class="card">
     <div class="card-header">

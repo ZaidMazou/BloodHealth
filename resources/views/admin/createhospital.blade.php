@@ -1,5 +1,7 @@
 @extends('admin.Layout')
 
+@section('title','Créer un hôpital')
+
 @section('content')
 
         <form action="{{ route('admin.hopital.store') }}" method="POST" class="form-material">

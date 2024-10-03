@@ -1,5 +1,5 @@
 @extends('admin.Layout')
-
+@section('title','Dashboard')
 @section('content')
     @forelse ($blood as $bl)
         @if ($bl->total < 50)

@@ -1,5 +1,5 @@
 @extends('admin.Layout')
-
+@section('title','Votre hôpital')
 @section('content')
     @if (!empty($hospital))
     <div class="container">

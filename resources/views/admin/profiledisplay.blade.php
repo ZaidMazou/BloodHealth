@@ -1,12 +1,14 @@
 @extends('admin.Layout')
 
+@section('title','Profile utilisateur')
+
 @section('content')
     <div class="card">
         <div class="card-block caption-breadcrumb">
             <div class="row">
                 <div class="col-lg-4">
                     @if($user->picture)
-                        <img src="{{ asset('storage/' . $user->picture) }}" class="img-thumbnail" alt="User Picture"/>
+                        <img src="{{ asset('storage/' . $user->picture) }}" class="img-thumbnail" alt="User Picture" style="width: 200px; height:240px"/>
                     @else
                         <p>No picture available</p>
                     @endif

@@ -1,5 +1,5 @@
 @extends('admin.Layout')
-
+@section('title','Ajouter des poches de sang')
 @section('content')
     <form action="{{ route('admin.blood.store')}}" method="post" class="form-material">
         @csrf
